@@ -1,0 +1,33 @@
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Nama Acara</th>
+      <th scope="col">Institusi</th>
+      <th scope="col">Status</th>
+      <th scope="col">Trash</th>
+      <th scope="col"></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let acara of acaraData">
+      <th scope="row">{{acara.id_acara}}</th>
+      <td>{{acara.nama_acara}}</td>
+      <td>{{acara.institusi}}</td>
+      <td>{{acara.status}}</td>
+      <td>
+      	<div class="custom-control custom-checkbox" (click)="restoreAcara(acara.id_acara)" *ngIf="acara.trash == 'Y'">
+		  <input type="checkbox" class="custom-control-input" id="trash-check{{acara.id_acara}}" checked>
+		  <label class="custom-control-label" for="trash-check{{acara.id_acara}}">Y</label>
+		</div>
+      	<div class="custom-control custom-checkbox" (click)="deleteAcara(acara.id_acara)" *ngIf="acara.trash == 'N'">
+		  <input type="checkbox" class="custom-control-input" id="trash-check{{acara.id_acara}}">
+		  <label class="custom-control-label" for="trash-check{{acara.id_acara}}">Y</label>
+		</div>
+      </td>
+      <td>
+        <button class="btn btn-primary" [routerLink]="['/acara', acara.id_acara]">Edit</button>
+      </td>
+    </tr>
+  </tbody>
+</table>
