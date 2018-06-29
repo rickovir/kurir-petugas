@@ -1,168 +1,170 @@
-<h4>Pengiriman Paket Barang</h4>
+  <div class="card">
+  <h4>Pengiriman Paket Barang</h4>
 
-<table class="table table-hover">
-  <tr>
-  	<th width="30%"><h5>Informasi Paket Barang</h5></th>
-  	<th width="1%"></th>
-  	<th></th>
-  </tr>
+  <table class="table table-hover">
+    <tr>
+    	<th width="30%"><h5>Informasi Paket Barang</h5></th>
+    	<th width="1%"></th>
+    	<th></th>
+    </tr>
 
-  <tr>
-    <td width="30%">No Resi</td>
-    <td width="1%">:</td>
-    <td width=""><input type="text" name="resi" value="{{ resi }}" style="width: 100%" disabled=""></td>
-  </tr>
+    <tr>
+      <td width="30%">No Resi</td>
+      <td width="1%">:</td>
+      <td width=""><input type="text" name="resi" value="{{ resi }}" style="width: 100%" disabled=""></td>
+    </tr>
 
-  <tr>
-  	<td width="30%">Tujuan</td>
-  	<td width="1%">:</td>
-  	<td width="">
-      <select required [(ngModel)]="tujuan" (change)="hitungHarga()">
-    		<option *ngFor="let data of tujuanOption" [ngValue]="data">{{ data.nama_cabang }} - {{data.harga}}</option>
+    <tr>
+    	<td width="30%">Tujuan</td>
+    	<td width="1%">:</td>
+    	<td width="">
+        <select required [(ngModel)]="tujuan" (change)="hitungHarga()">
+      		<option *ngFor="let data of tujuanOption" [ngValue]="data">{{ data.nama_cabang }} - {{data.harga}}</option>
+      	</select>
+    	</td>
+    </tr>
+
+    <tr>
+    	<td width="30%">Layanan</td>
+    	<td width="1%">:</td>
+    	<td width=""><select [(ngModel)]="layananDecimal" (change)="hitungHarga()">
+    		<option value="1">Jenis Layanan</option>
+    		<option value="1">Reguler</option>
+    		<option value="1.5">Express</option>
     	</select>
-  	</td>
-  </tr>
+    </tr>
 
-  <tr>
-  	<td width="30%">Layanan</td>
-  	<td width="1%">:</td>
-  	<td width=""><select [(ngModel)]="layananDecimal" (change)="hitungHarga()">
-  		<option value="1">Jenis Layanan</option>
-  		<option value="1">Reguler</option>
-  		<option value="1.5">Express</option>
-  	</select>
-  </tr>
+     <tr>
+      <td width="30%">Nama Barang</td>
+      <td width="1%">:</td>
+      <td width=""><input type="text" [(ngModel)]="nama" style="width: 100%"></td>
+    </tr>
 
-   <tr>
-    <td width="30%">Nama Barang</td>
-    <td width="1%">:</td>
-    <td width=""><input type="text" [(ngModel)]="nama" style="width: 100%"></td>
-  </tr>
+    <tr>
+    	<td width="30%"><h5>Informasi Pengirim</h5></td>
+    	<td width="1%"></td>
+    	<td width=""></td>
+    </tr>
 
-  <tr>
-  	<td width="30%"><h5>Informasi Pengirim</h5></td>
-  	<td width="1%"></td>
-  	<td width=""></td>
-  </tr>
+     <tr>
+      <td width="30%">Nama Pengirim</td>
+    	<td width="1%">:</td>
+    	<td width=""><input type="text" [(ngModel)]="pengirim.nama" style="width: 100%"></td>
+    </tr>
 
-   <tr>
-    <td width="30%">Nama Pengirim</td>
-  	<td width="1%">:</td>
-  	<td width=""><input type="text" [(ngModel)]="pengirim.nama" style="width: 100%"></td>
-  </tr>
+     <tr>
+      <td width="30%">Alamat Pengirim</td>
+    	<td width="1%">:</td>
+    	<td width=""><input type="text" id="alamatPengirim" (keyup)="RunAutoCompletePengirim()" style="width: 100%" [(ngModel)]="pengirim.alamat" /></td>
+    </tr>
 
-   <tr>
-    <td width="30%">Alamat Pengirim</td>
-  	<td width="1%">:</td>
-  	<td width=""><input type="text" id="alamatPengirim" (keyup)="RunAutoCompletePengirim()" style="width: 100%" [(ngModel)]="pengirim.alamat" /></td>
-  </tr>
+     <tr>
+    	<td width="30%">No. Hp</td>
+    	<td width="1%">:</td>
+    	<td width=""><input type="number" [(ngModel)]="pengirim.nohp" style="width: 100%"></td>
+    </tr>
 
-   <tr>
-  	<td width="30%">No. Hp</td>
-  	<td width="1%">:</td>
-  	<td width=""><input type="number" [(ngModel)]="pengirim.nohp" style="width: 100%"></td>
-  </tr>
+    <tr>
+    	<td width="30%"><h5>Informasi Penerima</h5></td>
+    	<td width="1%"></td>
+    	<td width=""></td>
+    </tr>
 
-  <tr>
-  	<td width="30%"><h5>Informasi Penerima</h5></td>
-  	<td width="1%"></td>
-  	<td width=""></td>
-  </tr>
+     <tr>
+      <td width="30%">Nama Penerima</td>
+    	<td width="1%">:</td>
+    	<td width=""><input type="text" [(ngModel)]="penerima.nama" style="width: 100%"></td>
+    </tr>
 
-   <tr>
-    <td width="30%">Nama Penerima</td>
-  	<td width="1%">:</td>
-  	<td width=""><input type="text" [(ngModel)]="penerima.nama" style="width: 100%"></td>
-  </tr>
+     <tr>
+      <td width="30%">Alamat Penerima</td>
+    	<td width="1%">:</td>
+      <td width=""><input type="text" id="alamatPenerima" (keyup)="RunAutoCompletePenerima()" style="width: 100%" [(ngModel)]="penerima.alamat" /></td>
+    </tr>
 
-   <tr>
-    <td width="30%">Alamat Penerima</td>
-  	<td width="1%">:</td>
-    <td width=""><input type="text" id="alamatPenerima" (keyup)="RunAutoCompletePenerima()" style="width: 100%" [(ngModel)]="penerima.alamat" /></td>
-  </tr>
+     <tr>
+      <td width="30%">No. Hp</td>
+    	<td width="1%">:</td>
+    	<td width=""><input type="number" [(ngModel)]="penerima.nohp" style="width: 100%"></td>
+    </tr>
 
-   <tr>
-    <td width="30%">No. Hp</td>
-  	<td width="1%">:</td>
-  	<td width=""><input type="number" [(ngModel)]="penerima.nohp" style="width: 100%"></td>
-  </tr>
+     <tr>
+    	<td width="30%"><h5>Ukuran Paket Data</h5></td>
+    	<td width="1%"></td>
+    	<td width=""></td>
+    </tr>
 
-   <tr>
-  	<td width="30%"><h5>Ukuran Paket Data</h5></td>
-  	<td width="1%"></td>
-  	<td width=""></td>
-  </tr>
+    <tr>
+    	<td width="30%">Berat</td>
+    	<td width="1%">:</td>
+    	<td width="">
+        <input type="number" [(ngModel)]="berat" (change)="hitungHarga()" (keyup)="hitungHarga()" style="width: 8rem" > KG 
+      </td>
+    </tr>
 
-  <tr>
-  	<td width="30%">Berat</td>
-  	<td width="1%">:</td>
-  	<td width="">
-      <input type="number" [(ngModel)]="berat" (change)="hitungHarga()" (keyup)="hitungHarga()" style="width: 8rem" > KG 
-    </td>
-  </tr>
+    <tr>
+      <td width="30%">Panjang</td>
+      <td width="1%">:</td>
+      <td width="">
+        <input type="number" [(ngModel)]="p" (change)="hitungDimensi()"  (keyup)="hitungDimensi()" style="width: 8rem" > CM 
+    </tr>
+    <tr>
+      <td width="30%">Lebar</td>
+      <td width="1%">:</td>
+      <td width="">
+        <input type="number" [(ngModel)]="l" (change)="hitungDimensi()"  (keyup)="hitungDimensi()" style="width: 8rem" > CM 
+    </tr>
+    <tr>
+      <td width="30%">Tinggi</td>
+      <td width="1%">:</td>
+      <td width="">
+        <input type="number" [(ngModel)]="t" (change)="hitungDimensi()"  (keyup)="hitungDimensi()" style="width: 8rem" > CM 
+    </tr>
+    <tr>
+      <td width="30%">Dimensi</td>
+      <td width="1%">:</td>
+      <td width="">
+        <input type="number" value="{{ dimensi }}" disabled style="width: 8rem" > CM Kubik
+    </tr>
+    <tr>
+    	<td width="30%">Valume</td>
+    	<td width="1%">:</td>
+    	<td width="">
+        <input type="number" value="{{ volume }}" disabled style="width: 8rem" >
+    </tr>
 
-  <tr>
-    <td width="30%">Panjang</td>
-    <td width="1%">:</td>
-    <td width="">
-      <input type="number" [(ngModel)]="p" (change)="hitungDimensi()"  (keyup)="hitungDimensi()" style="width: 8rem" > CM 
-  </tr>
-  <tr>
-    <td width="30%">Lebar</td>
-    <td width="1%">:</td>
-    <td width="">
-      <input type="number" [(ngModel)]="l" (change)="hitungDimensi()"  (keyup)="hitungDimensi()" style="width: 8rem" > CM 
-  </tr>
-  <tr>
-    <td width="30%">Tinggi</td>
-    <td width="1%">:</td>
-    <td width="">
-      <input type="number" [(ngModel)]="t" (change)="hitungDimensi()"  (keyup)="hitungDimensi()" style="width: 8rem" > CM 
-  </tr>
-  <tr>
-    <td width="30%">Dimensi</td>
-    <td width="1%">:</td>
-    <td width="">
-      <input type="number" value="{{ dimensi }}" disabled style="width: 8rem" > CM Kubik
-  </tr>
-  <tr>
-  	<td width="30%">Valume</td>
-  	<td width="1%">:</td>
-  	<td width="">
-      <input type="number" value="{{ volume }}" disabled style="width: 8rem" >
-  </tr>
+     <tr>
+      <td width="30%">Pecah Belah</td>
+      <td width="1%">:</td>
+      <td width="">
+        <select [(ngModel)]="pecahBelah">
+          <option value="Y">Ya</option>
+          <option value="N">Tidak</option>
+        </select>
+      </td>  
+    </tr>
 
-   <tr>
-    <td width="30%">Pecah Belah</td>
-    <td width="1%">:</td>
-    <td width="">
-      <select [(ngModel)]="pecahBelah">
-        <option value="Y">Ya</option>
-        <option value="N">Tidak</option>
-      </select>
-    </td>  
-  </tr>
+     <tr>
+      <td width="30%">Jenis Paket</td>
+    	<td width="1%">:</td>
+    	<td width="">
+        <select [(ngModel)]="jenis">
+          <option value="BRG">Barang</option>
+          <option value="DKM">Dokumen</option>
+        </select>
+      </td>  
+    </tr>
 
-   <tr>
-    <td width="30%">Jenis Paket</td>
-  	<td width="1%">:</td>
-  	<td width="">
-      <select [(ngModel)]="jenis">
-        <option value="BRG">Barang</option>
-        <option value="DKM">Dokumen</option>
-      </select>
-    </td>  
-  </tr>
+     <tr>
+    	<td width="30%"><h5>TOTAL</h5></td>
+      <td width="1%">: Rp. </td>
+    	<td width=""><input type="comment" value="{{ biaya }}" disabled="disabled"></td>
+    </tr>
 
-   <tr>
-  	<td width="30%"><h5>TOTAL</h5></td>
-    <td width="1%">: Rp. </td>
-  	<td width=""><input type="comment" value="{{ biaya }}" disabled="disabled"></td>
-  </tr>
-
-  <tr>
-  	<td width="30%"></td>
-  	<td width="1%"><button class="btn btn-primary" (click)="submitData()" type="submit">Submit</button></td>
-  	<td width=""></td>
-  </tr>
-</table>
+    <tr>
+    	<td width="30%"></td>
+    	<td width="1%"><button class="btn btn-primary" (click)="submitData()" type="submit">Submit</button></td>
+    	<td width=""></td>
+    </tr>
+  </table>
+  </div>

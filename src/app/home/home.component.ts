@@ -150,7 +150,8 @@ export class HomeComponent implements OnInit {
 	        console.log(place.name);
 	        
 	        this.setGeoLoc(place.geometry.location.lat(),place.geometry.location.lng());
-
+	        console.log(place.geometry.location.lat());
+	        console.log(place.geometry.location.lng());
 	        if (!place.geometry) {
 	          alert("No details available for input: '" + place.name + "'");
 	        return;
@@ -190,8 +191,8 @@ export class HomeComponent implements OnInit {
 			jenis_paket:this.jenis,
 			tarif:this.biaya,
 			created_on:0,
-			lat:this.geoLoc.lat,
-			lng:this.geoLoc.lng
+			lat:this.roundDecimal(this.geoLoc.lat),
+			lng:this.roundDecimal(this.geoLoc.lng)
 		};
 
 		console.log(this.paket);
@@ -234,6 +235,11 @@ export class HomeComponent implements OnInit {
 		{
 			this.biaya = this.volume*this.tujuan.harga*this.layananDecimal;
 		}
+	}
+
+	roundDecimal(value)
+	{
+		return Math.round(value * 10000) / 10000
 	}
 
 }

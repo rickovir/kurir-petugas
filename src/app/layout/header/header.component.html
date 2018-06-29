@@ -1,3 +1,81 @@
-<div class="container">
-  <h1>Petugas KU-PAT</h1>
+
+<div class="sidebar" data-background-color="white" data-active-color="danger">
+
+    <!--
+		Tip 1: you can change the color of the sidebar's background using: data-background-color="white | black"
+		Tip 2: you can change the color of the active button using the data-active-color="primary | info | success | warning | danger"
+	-->
+
+	<div class="sidebar-wrapper">
+		<div class="logo">
+			<a routerLink="/home" routerLinkActive="active" class="simple-text">
+				<b>KU-PAT</b>
+			</a>
+		</div>
+
+		<ul class="nav">
+			<li>
+				<a routerLink="/" routerLinkActive="active">
+					<i class="ti-panel"></i>
+					<p>Dashboard</p>
+				</a>
+			</li>
+			<li routerLinkActive="active">
+				<a routerLink="/home" routerLinkActive="active">
+					<i class="ti-view-list-alt"></i>
+					<p>Paket Barang</p>
+				</a>
+			</li>
+			<li routerLinkActive="active">
+				<a routerLink="/acara" routerLinkActive="active">
+					<i class="ti-view-list-alt"></i>
+					<p>Terima Paket Barang</p>
+				</a>
+			</li>
+			<li routerLinkActive="active">
+				<a routerLink="/paket" routerLinkActive="active" >
+					<i class="ti-text"></i>
+					<p>Paket</p>
+				</a>
+			</li>
+			<li routerLinkActive="active">
+				<a href="icons.html">
+					<i class="ti-pencil-alt2"></i>
+					<p>Icons</p>
+				</a>
+			</li>
+			<li routerLinkActive="active">
+				<a href="maps.html">
+					<i class="ti-map"></i>
+					<p>Maps</p>
+				</a>
+			</li>
+			<li routerLinkActive="active">
+				<a href="notifications.html">
+					<i class="ti-bell"></i>
+					<p>Notifications</p>
+				</a>
+			</li>
+		</ul>
+	</div>
 </div>
+
+   <!--  <br >
+    <div class="row">
+      <div class="col-sm-2">
+        <div class="list-group">
+          <a class="list-group-item list-group-item-action" style="font-weight: bold">
+            Form
+          </a>
+          <a routerLink="/home" routerLinkActive="active" class="list-group-item list-group-item-action">Input Paket Barang</a>
+          <a routerLink="/acara" routerLinkActive="active" class="list-group-item list-group-item-action">Tanda Terima Paket Barang</a>
+          <a class="list-group-item list-group-item-action" style="font-weight: bold">
+            Paket Barang
+          </a>
+          <a routerLink="/paket" routerLinkActive="active" class="list-group-item list-group-item-action">List Paket Barang</a>
+        </div>
+      </div>
+      <div class="col-sm-10">
+        <router-outlet></router-outlet>
+      </div>
+    </div> -->
