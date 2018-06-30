@@ -5,11 +5,11 @@ import { PaketBarangService } from '../paket-barang.service';
 declare var google: any;
 
 @Component({
-	selector: 'app-paket',
-	templateUrl: './paket.component.html',
-	styleUrls: ['./paket.component.css']
+	selector: 'app-add-paket',
+	templateUrl: './add-paket.component.html',
+	styleUrls: ['./add-paket.component.css']
 })
-export class PaketComponent implements OnInit {
+export class AddPaketComponent implements OnInit {
 	paket:PaketBarang;
 	
 	tujuanOption:Array<{

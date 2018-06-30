@@ -6,16 +6,31 @@ import { HttpClientModule } from '@angular/common/http';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
 import { HomeComponent } from './home/home.component';
+import { PaketComponent } from './paket/paket.component';
 import { AcaraComponent } from './acara/acara.component';
 import { HeaderComponent } from './layout/header/header.component';
 import { MainComponent } from './layout/main/main.component';
 import { FooterComponent } from './layout/footer/footer.component';
 import { AcaraDetailComponent } from './acara-detail/acara-detail.component';
+import { AddPaketComponent } from './add-paket/add-paket.component';
+import { UpdatePaketComponent } from './update-paket/update-paket.component';
 
 const adminRoute:Routes =[
  {
    path:'home',
    component:HomeComponent
+ },
+ {
+   path:'paket',
+   component:PaketComponent,
+ },
+ {
+    path:"paket/add",
+    component:AddPaketComponent
+ },
+ {
+    path:"paket/update/:id",
+    component:UpdatePaketComponent
  },
  {
    path:'acara',
@@ -48,8 +63,11 @@ const appRoute: Routes = [
     AcaraComponent,
     HeaderComponent,
     MainComponent,
+    PaketComponent,
     FooterComponent,
-    AcaraDetailComponent
+    AcaraDetailComponent,
+    AddPaketComponent,
+    UpdatePaketComponent
   ],
   imports: [
     RouterModule.forRoot(
