@@ -1,7 +1,7 @@
 <h4>Paket Barang</h4>
 <div class="card">
 	<div class="header">
-	<button class="btn btn-success pull-right" routerLink="/paket/add">Add Paket</button>	
+	<a href="paket/add" class="btn btn-success pull-right" >Add Paket</a>	
 		<h4 class="title">Paket Pengiriman</h4>
 		<p class="category">List Data Paket Pengiriman</p>
 	</div>
@@ -11,58 +11,26 @@
 		}
 	</style>
 	<div class="content table-responsive">
-		<table id="myTable" class="table table-striped">
+		<table class="table table-striped">
 			<thead>
 				<tr>
 					<th>ID</th>
-					<th>Name</th>
-					<th>Salary</th>
-					<th>Country</th>
-					<th>City</th>
+					<th>NoResi</th>
+					<th>Cabang Tujuan</th>
+					<th>Nama Barang</th>
+					<th>Action</th>
 				</tr>
 			</thead>
 			<tbody>
-				<tr>
-					<td>1</td>
-					<td>Dakota Rice</td>
-					<td>$36,738</td>
-					<td>Niger</td>
-					<td>Oud-Turnhout</td>
-				</tr>
-				<tr>
-					<td>2</td>
-					<td>Minerva Hooper</td>
-					<td>$23,789</td>
-					<td>Curaçao</td>
-					<td>Sinaai-Waas</td>
-				</tr>
-				<tr>
-					<td>3</td>
-					<td>Sage Rodriguez</td>
-					<td>$56,142</td>
-					<td>Netherlands</td>
-					<td>Baileux</td>
-				</tr>
-				<tr>
-					<td>4</td>
-					<td>Philip Chaney</td>
-					<td>$38,735</td>
-					<td>Korea, South</td>
-					<td>Overland Park</td>
-				</tr>
-				<tr>
-					<td>5</td>
-					<td>Doris Greene</td>
-					<td>$63,542</td>
-					<td>Malawi</td>
-					<td>Feldkirchen in Kärnten</td>
-				</tr>
-				<tr>
-					<td>6</td>
-					<td>Mason Porter</td>
-					<td>$78,615</td>
-					<td>Chile</td>
-					<td>Gloucester</td>
+				<tr *ngFor="let paket of pakets">
+					<td>{{ paket.IDPaket }}</td>
+					<td>{{ paket.no_resi }}</td>
+					<td>{{ getNamaCabang(paket.IDCabang) }}</td>
+					<td>{{ paket.nama_paket }}</td>
+					<td>
+						<a href="paket/update/{{ paket.IDPaket }}" class="btn btn-success btn-fill"><i class="ti-pencil"></i></a>
+						<button class="btn btn-danger btn-fill"><i class="ti-trash"></i></button>
+					</td>
 				</tr>
 			</tbody>
 		</table>

@@ -23,16 +23,28 @@ export class PaketBarangService {
   	{
   		this.socket.on('connect',()=>{
 			this.socket.emit('show_paket_barang');
-  			this.socket.emit('show_harga');
+        this.socket.emit('show_harga');
+  			this.socket.emit('show_cabang');
 	  	});
   	}
 
   // show_paket_barang
   public showPaketBarang()
   {
-  	let observable:Observable<PaketBarang[]> = new Observable(
+    let observable:Observable<PaketBarang[]> = new Observable(
+        (observer) => {
+        this.socket.on('show_paket_messages', 
+          (data) => {
+          observer.next(data);
+          });
+        })
+      return observable;
+  }
+  public paketBarangStream()
+  {
+  	let observable:Observable<any> = new Observable(
 	    	(observer) => {
-				this.socket.on('show_paket_messages', 
+				this.socket.on('paket_barang_stream', 
 					(data) => {
 					observer.next(data);
 					});
@@ -42,9 +54,37 @@ export class PaketBarangService {
   // show_paket_barang
   public showHarga()
   {
+    let observable:Observable<any[]> = new Observable(
+        (observer) => {
+        this.socket.on('show_harga_answer', 
+          (data) => {
+          observer.next(data);
+          });
+        })
+      return observable;
+  }
+  public callSelectPaket(id)
+  {
+    this.socket.emit("select_paket",{IDPaket:id});
+  }
+
+  public receiveSelectPaket()
+  {
+    let observable:Observable<PaketBarang> = new Observable(
+        (observer) => {
+        this.socket.on('select_paket_messages', 
+          (data) => {
+          observer.next(data);
+          });
+        })
+      return observable;
+  }
+  // show_paket_barang
+  public showCabang()
+  {
   	let observable:Observable<any[]> = new Observable(
 	    	(observer) => {
-				this.socket.on('show_harga_answer', 
+				this.socket.on('show_cabang_messages', 
 					(data) => {
 					observer.next(data);
 					});

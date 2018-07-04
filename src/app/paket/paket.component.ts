@@ -1,8 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, NgZone } from '@angular/core';
 import {PaketBarang} from '../PaketBarang';
+import {ActivatedRoute, Router} from "@angular/router";
 import { PaketBarangService } from '../paket-barang.service';
-
-declare var google: any;
 
 @Component({
 	selector: 'app-paket',
@@ -10,236 +9,84 @@ declare var google: any;
 	styleUrls: ['./paket.component.css']
 })
 export class PaketComponent implements OnInit {
-	paket:PaketBarang;
-	
-	tujuanOption:Array<{
-		nama_cabang:string,
-		harga:number,
-		IDCabang:number
-	}>;
+	pakets:Array<PaketBarang>;
+	cabang:Array<any>;
 
-	tujuan:{
-		nama_cabang:string,
-		harga:number,
-		IDCabang:number
-	};
+	constructor(private paketBarangService:PaketBarangService, private router:Router, private ngZone:NgZone) {
 
-	resi:string;
-	pecahBelah:string;
-	biaya:number;
-	nama:string;
-	berat:number;
-	p:number;
-	l:number;
-	t:number;
-	dimensi:number;
-	volume:number;
-	layananDecimal:number;
-	jenis:string;
-	pengirim:{
-		nama:string,
-		alamat:string,
-		nohp:string
-	};
-	penerima:{
-		nama:string,
-		alamat:string,
-		nohp:string
-	};
-	geoLoc:{
-		lat:number,
-		lng:number
-	}
-
-	constructor(private paketBarangService:PaketBarangService) {
-		this.resi = this.makeResi();
-		this.layananDecimal = 1;
-		this.nama = "";
-		this.biaya = 0;
-		this.jenis ="";
-		this.p = 0;
-		this.l = 0;
-		this.t = 0;
-		this.volume = 0;
-		this.dimensi = 0;
-		this.berat = 0;
-		this.penerima = {
-			nama:"",
-			alamat:"",
-			nohp:""
-		}
-		this.pengirim = {
-			nama:"",
-			alamat:"",
-			nohp:""
-		}
-		this.tujuan = {
-			nama_cabang:"",
-			harga:0,
-			IDCabang:0
-		};
-
-		this.geoLoc = {
-			lat:0,
-			lng:0
-		}
-
-		this.tujuanOption = [];
-
-		this.paketBarangService.initData();
-
-		this.paketBarangService.showPaketBarang().subscribe(
-			data =>{
-				console.log(data);
-				});
-		this.paketBarangService.showHarga().subscribe(
-			data =>{
-				this.tujuanOption = data;
-			});
 	 }
 
 	ngOnInit() {
+		console.log("paket barang tampil page");
+		this.paketBarangService.initData();
+		this.pakets = [];
+		this.cabang = [];
+		this.paketBarangService.showPaketBarang().subscribe(
+			(data:PaketBarang[])=>{
+				this.pakets = data;
+				console.log(data);
+			});
+
+		this.paketBarangService.paketBarangStream().subscribe(
+			(data)=>{
+				if(data.type=="add")
+				{
+					console.log(data);
+					data.data.IDPaket = data.IDPaket;
+					this.pakets.unshift(data.data);
+				}
+				else if(data.type=="update")
+				{
+					console.log(data);
+					this.pakets.map((dataPaket)=>{
+						if(dataPaket.IDPaket == data.data.IDPaket)
+						{
+							dataPaket = data.data;
+						}
+					})
+				}
+				else if(data.type=="delete")
+				{
+					console.log(data);
+					this.pakets = this.pakets.filter((dataPaket)=>{
+						if(dataPaket.IDPaket != data.data.IDPaket)
+						{
+							return dataPaket;
+						}
+					})
+				}
+			});
+
+		this.paketBarangService.showCabang().subscribe(
+			(data:any[])=>{
+				this.cabang = data;
+				console.log(data);
+			});
+
 	}
-	setAlamatPengirim(alamat)
+
+	cekKosong()
 	{
-		this.pengirim.alamat = alamat;
-	}
-	setAlamatPenerima(alamat)
-	{
-		this.penerima.alamat = alamat;
-	}
-
-	RunAutoCompletePengirim()
-	{
-		// this just for angular desktop
-	    var input = document.getElementById('alamatPengirim');
-		var options = {componentRestrictions: {country: 'id'}};
-		var autocomplete = new google.maps.places.Autocomplete(input, options);
-
-		autocomplete.addListener('place_changed', () =>{
-	        var place = autocomplete.getPlace();
-	        this.setAlamatPengirim(place.formatted_address);
-	        console.log(place.name);
-	        console.log(place.geometry.location.lat());
-
-	        if (!place.geometry) {
-	          alert("No details available for input: '" + place.name + "'");
-	        return;
-	      }
-	      });
-	}
-
-	setGeoLoc(lat,lng)
-	{
-		this.geoLoc={
-			lat:lat,
-			lng:lng
-		};
-	}
-
-	RunAutoCompletePenerima()
-	{
-		// this just for angular desktop
-	    var input = document.getElementById('alamatPenerima');
-		var options = {componentRestrictions: {country: 'id'}};
-		var autocomplete = new google.maps.places.Autocomplete(input, options);
-
-		autocomplete.addListener('place_changed', () =>{
-	        var place = autocomplete.getPlace();
-	        this.setAlamatPenerima(place.formatted_address);
-	        console.log(place.name);
-	        
-	        this.setGeoLoc(place.geometry.location.lat(),place.geometry.location.lng());
-	        console.log(place.geometry.location.lat());
-	        console.log(place.geometry.location.lng());
-	        if (!place.geometry) {
-	          alert("No details available for input: '" + place.name + "'");
-	        return;
-	      }
-	      });
+		this.paketBarangService.initData();
+		console.log("cek");
 	}
 	
 
-	cekTujuan()
+	getNamaCabang(id)
 	{
-		console.log(this.tujuan);
-	}
-	submitData()
-	{
-		let kategoriPaket;
+		let x = this.cabang.filter(data=>{
+			return data.IDCabang == id
+		})
 
-		if(this.layananDecimal == 1)
-		{
-			kategoriPaket = 'REG';
-		}else if(this.layananDecimal == 1.5)
-		{
-			kategoriPaket = 'EXP';
-		}
-		this.paket = {
-			IDPaket:0,
-			IDCabang:this.tujuan.IDCabang,
-			nama_paket:this.nama,
-			no_resi:this.resi,
-			nama_pengirim:this.pengirim.nama,
-			alamat_pengirim:this.pengirim.alamat,
-			telepon_pengirim:this.pengirim.nohp.toString(),
-			nama_penerima:this.penerima.nama,
-			alamat_penerima:this.penerima.alamat,
-			telepon_penerima:this.penerima.nohp.toString(),
-			berat:this.berat,
-			kategori_paket:kategoriPaket,
-			jenis_paket:this.jenis,
-			tarif:this.biaya,
-			created_on:0,
-			lat:this.roundDecimal(this.geoLoc.lat),
-			lng:this.roundDecimal(this.geoLoc.lng)
-		};
-
-		console.log(this.paket);
-
-		this.paketBarangService.addBarang(this.paket).subscribe(
-			data =>{
-				console.log(data);
-				});
-	}
-	cekTextarea()
-	{
-		console.log(this.nama);
-	}
-	getTime()
-	{
-		return new Date().getTime();
+		return x[0].nama_cabang;
 	}
 
-	getRandomInt(min, max) {
-		return Math.floor(Math.random() * (max - min + 1)) + min;
-	}
-
-	makeResi()
+	gotoAdd()
 	{
-		return this.getTime().toString() + this.getRandomInt(100,999).toString();
+		this.ngZone.run(()=>{
+			this.router.navigateByUrl('/paket/add');
+		});
+		console.log("add data");
 	}
-
-	hitungDimensi()
-	{
-		this.dimensi = this.p*this.l*this.t;
-		this.volume = this.dimensi/6000;
-		this.hitungHarga();
-	}
-	hitungHarga()
-	{
-		if(this.dimensi < 18000){
-			this.biaya = this.tujuan.harga*this.berat*this.layananDecimal;
-		}
-		else
-		{
-			this.biaya = this.volume*this.tujuan.harga*this.layananDecimal;
-		}
-	}
-
-	roundDecimal(value)
-	{
-		return Math.round(value * 10000) / 10000
-	}
-
+	
 }

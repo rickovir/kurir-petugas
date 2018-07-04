@@ -1,0 +1,209 @@
+<h4>Tambah Pengiriman Paket Barang</h4>
+
+<div class="card">
+	<div class="header">
+		<button class="btn btn-primary pull-right" routerLink="/paket">Back</button>
+
+	</div>
+	<div class="content">
+		<!-- <form> -->
+			<div class="row">
+			    <div class="col-md-12">
+			        <div class="form-group">
+			            <label>Nomor Resi</label>
+			            <input type="text" class="form-control border-input" value="{{ resi }}" disabled="">
+			        </div>
+			    </div>
+			</div>
+		<!-- </form> -->
+	</div>
+</div>
+
+<div class="card">
+	<div class="header">
+	    <h4 class="title">Informasi Paket Pengirim</h4>
+	</div>
+	<div class="content">
+		<!-- <form> -->
+			<div class="row">
+			    <div class="col-md-12">
+			        <div class="form-group">
+			            <label>Nama Pengirim</label>
+			            <input type="text" class="form-control border-input" [(ngModel)]="pengirim.nama">
+			        </div>
+			    </div>
+			</div>
+			<div class="row">
+			    <div class="col-md-12">
+			        <div class="form-group">
+			            <label>Alamat Pengirim</label>
+			            <input type="text" class="form-control border-input" id="alamatPengirim" (keyup)="RunAutoCompletePengirim()" [(ngModel)]="pengirim.alamat">
+			        </div>
+			    </div>
+			</div>
+			<div class="row">
+			    <div class="col-md-12">
+			        <div class="form-group">
+			            <label>Nomor HP</label>
+			            <input type="number" [(ngModel)]="pengirim.nohp" class="form-control border-input">
+			        </div>
+			    </div>
+			</div>
+		<!-- </form> -->
+	</div>
+</div>
+
+<div class="card">
+	<div class="header">
+		<h4 class="title">Informasi Paket Barang</h4>
+	</div>
+	<div class="content">
+		<!-- <form> -->
+		<div class="row">
+			<div class="col-md-12">
+				<div class="form-group">
+					<label>Tujuan</label>
+			        <select class="form-control border-input" [(ngModel)]="tujuan" (change)="hitungHarga()">
+			      		<option *ngFor="let data of tujuanOption" [ngValue]="data">{{ data.nama_cabang }} - {{data.harga}}</option>
+			      	</select>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-12">
+				<div class="form-group">
+					<label>Layanan</label>
+			        <select class="form-control border-input" [(ngModel)]="layananDecimal" (change)="hitungHarga()">
+			    		<option value="1">Jenis Layanan</option>
+			    		<option value="1">Reguler</option>
+			    		<option value="1.5">Express</option>
+			    	</select>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-12">
+				<div class="form-group">
+					<label>Nama Barang</label>
+					<input type="text" [(ngModel)]="nama" class="form-control border-input">
+				</div>
+			</div>
+		</div>
+	<!-- </form> -->
+	</div>
+</div>
+
+<div class="card">
+	<div class="header">
+	    <h4 class="title">Informasi Paket Penerima</h4>
+	</div>
+	<div class="content">
+		<!-- <form> -->
+			<div class="row">
+			    <div class="col-md-12">
+			        <div class="form-group">
+			            <label>Nama Penerima</label>
+			            <input type="text" class="form-control border-input" [(ngModel)]="penerima.nama">
+			        </div>
+			    </div>
+			</div>
+			<div class="row">
+			    <div class="col-md-12">
+			        <div class="form-group">
+			            <label>Alamat Penerima</label>
+			            <input type="text" class="form-control border-input" id="alamatPengirim" (keyup)="RunAutoCompletePengirim()" [(ngModel)]="penerima.alamat">
+			        </div>
+			    </div>
+			</div>
+			<div class="row">
+			    <div class="col-md-12">
+			        <div class="form-group">
+			            <label>Nomor HP</label>
+			            <input type="number" [(ngModel)]="penerima.nohp" class="form-control border-input">
+			        </div>
+			    </div>
+			</div>
+		<!-- </form> -->
+	</div>
+</div>
+
+<div class="card">
+	<div class="header">
+	    <h4 class="title">Ukuran Paket</h4>
+	</div>
+	<div class="content">
+		<!-- <form> -->
+			<div class="row">
+			    <div class="col-md-6">
+			        <div class="form-group">
+			            <label>Panjang (Cm)</label>
+			            <input type="number" [(ngModel)]="p" (change)="hitungDimensi()"  (keyup)="hitungDimensi()" class="form-control border-input">
+			        </div>
+			    </div>
+			    <div class="col-md-6">
+			        <div class="form-group">
+			            <label>Lebar (Cm)</label>
+			            <input type="number" [(ngModel)]="l" (change)="hitungDimensi()"  (keyup)="hitungDimensi()" class="form-control border-input">
+			        </div>
+			    </div>
+			</div>
+			<div class="row">
+			    <div class="col-md-6">
+			        <div class="form-group">
+			            <label>Tinggi (Cm)</label>
+			            <input type="number" [(ngModel)]="t" (change)="hitungDimensi()"  (keyup)="hitungDimensi()" class="form-control border-input">
+			        </div>
+			    </div>
+			    <div class="col-md-6">
+			        <div class="form-group">
+			            <label>Dimensi (Cm)</label>
+			            <input type="number" value="{{ dimensi }}" disabled class="form-control border-input">
+			        </div>
+			    </div>
+			</div>
+			<div class="row">
+			    <div class="col-md-6">
+			        <div class="form-group">
+			            <label>Berat (Kg)</label>
+			            <input type="number" [(ngModel)]="berat" (change)="hitungHarga()" (keyup)="hitungHarga()" class="form-control border-input">
+			        </div>
+			    </div>
+			    <div class="col-md-6">
+			        <div class="form-group">
+			            <label>Volume</label>
+			            <input type="number" value="{{ volume }}" disabled class="form-control border-input">
+			        </div>
+			    </div>
+			</div>
+			<div class="row">
+			    <div class="col-md-6">
+			        <div class="form-group">
+			            <label>Pecah Belah</label>
+	                    <select [(ngModel)]="pecahBelah" class="form-control border-input">
+				          <option value="Y">Ya</option>
+				          <option value="N">Tidak</option>
+				        </select>
+			        </div>
+			    </div>
+			    <div class="col-md-6">
+			        <div class="form-group">
+			            <label>Jenis Paket</label>
+	                    <select [(ngModel)]="jenis" class="form-control border-input">
+				          <option value="BRG">Barang</option>
+				          <option value="DKM">Dokumen</option>
+				        </select>
+			        </div>
+			    </div>
+			</div>
+			<div class="row">
+			    <div class="col-md-12">
+			        <div class="form-group">
+			            <label>Total (Rupiah)</label>
+	                    <input type="text" class="form-control border-input" value="{{ biaya }}" disabled="disabled">
+			        </div>
+			    </div>
+			</div>
+			<button class="btn btn-primary btn-fill" (click)="submitData()" type="submit">Submit</button>
+		<!-- </form> -->
+	</div>
+</div>

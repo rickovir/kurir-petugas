@@ -1,9 +1,7 @@
 <h4>Tambah Pengiriman Paket Barang</h4>
-
 <div class="card">
 	<div class="header">
-		<button class="btn btn-primary pull-right" routerLink="/paket">Back</button>
-
+		<a class="btn btn-primary pull-right" href="/paket">Back</a>
 	</div>
 	<div class="content">
 		<!-- <form> -->
@@ -111,7 +109,7 @@
 			    <div class="col-md-12">
 			        <div class="form-group">
 			            <label>Alamat Penerima</label>
-			            <input type="text" class="form-control border-input" id="alamatPengirim" (keyup)="RunAutoCompletePengirim()" [(ngModel)]="penerima.alamat">
+			            <input type="text" class="form-control border-input" id="alamatPenerima" (keyup)="RunAutoCompletePenerima()" [(ngModel)]="penerima.alamat">
 			        </div>
 			    </div>
 			</div>
@@ -206,4 +204,8 @@
 			<button class="btn btn-primary btn-fill" (click)="submitData()" type="submit">Submit</button>
 		<!-- </form> -->
 	</div>
+</div>
+<div class="alert alert-success" *ngIf="isSubmit">
+    <button type="button" aria-hidden="true" class="close">×</button>
+    <span><b> Success - </b> Data Berhasil disimpan</span>
 </div>

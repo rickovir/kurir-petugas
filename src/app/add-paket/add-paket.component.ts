@@ -11,6 +11,7 @@ declare var google: any;
 })
 export class AddPaketComponent implements OnInit {
 	paket:PaketBarang;
+	isSubmit:boolean;
 	
 	tujuanOption:Array<{
 		nama_cabang:string,
@@ -52,6 +53,26 @@ export class AddPaketComponent implements OnInit {
 	}
 
 	constructor(private paketBarangService:PaketBarangService) {
+		this.isSubmit = false;
+	 }
+
+	ngOnInit() {
+		this.initDataPaketBarang();
+
+		this.paketBarangService.initData();
+
+		this.paketBarangService.showPaketBarang().subscribe(
+			data =>{
+				console.log(data);
+				});
+		this.paketBarangService.showHarga().subscribe(
+			data =>{
+				this.tujuanOption = data;
+			});
+	}
+
+	initDataPaketBarang()
+	{
 		this.resi = this.makeResi();
 		this.layananDecimal = 1;
 		this.nama = "";
@@ -85,21 +106,8 @@ export class AddPaketComponent implements OnInit {
 		}
 
 		this.tujuanOption = [];
-
-		this.paketBarangService.initData();
-
-		this.paketBarangService.showPaketBarang().subscribe(
-			data =>{
-				console.log(data);
-				});
-		this.paketBarangService.showHarga().subscribe(
-			data =>{
-				this.tujuanOption = data;
-			});
-	 }
-
-	ngOnInit() {
 	}
+
 	setAlamatPengirim(alamat)
 	{
 		this.pengirim.alamat = alamat;
@@ -167,6 +175,11 @@ export class AddPaketComponent implements OnInit {
 	submitData()
 	{
 		let kategoriPaket;
+		this.isSubmit = true;
+
+		setTimeout(()=>{
+			this.isSubmit = false;
+		},10000)
 
 		if(this.layananDecimal == 1)
 		{
@@ -201,6 +214,8 @@ export class AddPaketComponent implements OnInit {
 			data =>{
 				console.log(data);
 				});
+		
+		this.initDataPaketBarang();
 	}
 	cekTextarea()
 	{
