@@ -29,31 +29,39 @@ export class PaketComponent implements OnInit {
 
 		this.paketBarangService.paketBarangStream().subscribe(
 			(data)=>{
-				if(data.type=="add")
+				if(data.type=="add") // add data from socket
 				{
 					console.log(data);
 					data.data.IDPaket = data.IDPaket;
 					this.pakets.unshift(data.data);
 				}
-				else if(data.type=="update")
+				else if(data.type=="update") // update data from socket
 				{
 					console.log(data);
-					this.pakets.map((dataPaket)=>{
-						if(dataPaket.IDPaket == data.data.IDPaket)
+					for(let i =0; i<this.pakets.length; i++)
+					{
+						if(this.pakets[i].IDPaket == data.IDPaket)
 						{
-							dataPaket = data.data;
+							this.pakets[i] = data.data;
+							this.pakets[i].IDPaket = data.IDPaket;
 						}
-					})
+					}
 				}
-				else if(data.type=="delete")
+				else if(data.type=="delete") // delete data from socket
 				{
 					console.log(data);
-					this.pakets = this.pakets.filter((dataPaket)=>{
-						if(dataPaket.IDPaket != data.data.IDPaket)
-						{
-							return dataPaket;
-						}
-					})
+					// let temp:PaketBarang[];
+					// let j = 0;
+					// for(let i =0; i<this.pakets.length; i++)
+					// {
+					// 	if(this.pakets[i].IDPaket != data.IDPaket)
+					// 	{
+					// 		temp[j] = this.pakets[i];
+					// 		j++;
+					// 	}
+					// }
+					// this.pakets = temp;
+					// this.pakets = this.pakets.filter(paket=>paket.IDPaket !==data.IDPaket);
 				}
 			});
 
@@ -69,6 +77,13 @@ export class PaketComponent implements OnInit {
 	{
 		this.paketBarangService.initData();
 		console.log("cek");
+	}
+
+	doDeleteBarang(id)
+	{
+		this.paketBarangService.deleteBarang(id).subscribe((data)=>{
+			console.log(data);
+		});
 	}
 	
 

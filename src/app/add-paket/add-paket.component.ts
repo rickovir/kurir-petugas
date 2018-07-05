@@ -61,10 +61,6 @@ export class AddPaketComponent implements OnInit {
 
 		this.paketBarangService.initData();
 
-		this.paketBarangService.showPaketBarang().subscribe(
-			data =>{
-				console.log(data);
-				});
 		this.paketBarangService.showHarga().subscribe(
 			data =>{
 				this.tujuanOption = data;

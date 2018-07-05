@@ -93,12 +93,51 @@ export class PaketBarangService {
   }
   public addBarang(data):Observable<any>
   {
+    let send = {
+      type : 'add',
+    data : data
+    };
+    this.socket.emit('paket_barang_stream', send);
+    
+      let observable:Observable<any> = new Observable(
+        (observer) => {
+        this.socket.on('paket_barang_stream', 
+          (data) => {
+            observer.next(data);
+          });
+        })
+      return observable;
+  }
+  public updateBarang(data):Observable<any>
+  {
+    let send = {
+      type : 'update',
+      data : data,
+      IDPaket : data.IDPaket
+    };
+    this.socket.emit('paket_barang_stream', send);
+    
+    console.log(send);
+
+      let observable:Observable<any> = new Observable(
+        (observer) => {
+        this.socket.on('paket_barang_stream', 
+          (data) => {
+            observer.next(data);
+          });
+        })
+      return observable;
+  }
+  public deleteBarang(id):Observable<any>
+  {
   	let send = {
-  		type : 'add',
-		data : data
+  		type : 'delete',
+      IDPaket : id
   	};
   	this.socket.emit('paket_barang_stream', send);
   	
+    console.log(send);
+
       let observable:Observable<any> = new Observable(
         (observer) => {
         this.socket.on('paket_barang_stream', 
