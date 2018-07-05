@@ -54,6 +54,26 @@ export class AddPaketComponent implements OnInit {
 
 	constructor(private paketBarangService:PaketBarangService) {
 		this.isSubmit = false;
+		let username = localStorage.getItem("username");
+		let password = localStorage.getItem("password");
+
+		if(username == "" || username == undefined)
+		{
+			window.location.href = "/login";
+		}
+		else if(username != "cGV0dWdhcw==")
+		{
+			window.location.href = "/login";
+		}
+
+		if(password == "" || password == undefined)
+		{
+			window.location.href = "/login";
+		}
+		else if(password != "cGV0dWdhcw==")
+		{
+			window.location.href = "/login";
+		}
 	 }
 
 	ngOnInit() {

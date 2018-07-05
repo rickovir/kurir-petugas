@@ -13,7 +13,26 @@ export class PaketComponent implements OnInit {
 	cabang:Array<any>;
 
 	constructor(private paketBarangService:PaketBarangService, private router:Router, private ngZone:NgZone) {
+		let username = localStorage.getItem("username");
+		let password = localStorage.getItem("password");
 
+		if(username == "" || username == undefined)
+		{
+			window.location.href = "/login";
+		}
+		else if(username != "cGV0dWdhcw==")
+		{
+			window.location.href = "/login";
+		}
+
+		if(password == "" || password == undefined)
+		{
+			window.location.href = "/login";
+		}
+		else if(password != "cGV0dWdhcw==")
+		{
+			window.location.href = "/login";
+		}
 	 }
 
 	ngOnInit() {
@@ -61,7 +80,7 @@ export class PaketComponent implements OnInit {
 					// 	}
 					// }
 					// this.pakets = temp;
-					// this.pakets = this.pakets.filter(paket=>paket.IDPaket !==data.IDPaket);
+					this.pakets = this.pakets.filter(paket=>paket.IDPaket !==data.IDPaket);
 				}
 			});
 

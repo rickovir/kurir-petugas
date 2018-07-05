@@ -58,7 +58,28 @@ export class UpdatePaketComponent implements OnInit {
 	  private route: ActivatedRoute,
 	  private router: Router,
 	  private paketBarangService:PaketBarangService
-	  ) { }
+	  ) {
+			let username = localStorage.getItem("username");
+			let password = localStorage.getItem("password");
+
+			if(username == "" || username == undefined)
+			{
+				window.location.href = "/login";
+			}
+			else if(username != "cGV0dWdhcw==")
+			{
+				window.location.href = "/login";
+			}
+
+			if(password == "" || password == undefined)
+			{
+				window.location.href = "/login";
+			}
+			else if(password != "cGV0dWdhcw==")
+			{
+				window.location.href = "/login";
+			}
+	  }
 
   ngOnInit() {
   	let id;

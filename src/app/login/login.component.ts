@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -7,11 +6,14 @@ import { Router } from '@angular/router';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
-	email:string;
+	username:string;
 	password:string;
-  constructor(private router: Router) { 
-  	this.email="";
+  isValid:boolean;
+
+  constructor() { 
+  	this.username="";
   	this.password="";
+    this.isValid = true;
   }
 
   ngOnInit() {
@@ -19,12 +21,26 @@ export class LoginComponent implements OnInit {
 
   submit():void
   {
-  	console.log("email : "+this.email);
-  	console.log("password : "+this.password);
 
-  	localStorage.setItem("email", this.email);
-  	localStorage.setItem("password", this.password);
-  	this.router.navigate(["/home"]);
+    this.username = btoa(this.username);
+    this.password = btoa(this.password);
+    if(this.username == 'cGV0dWdhcw==' && this.password == 'cGV0dWdhcw=='){
+
+    	localStorage.setItem("username", this.username);
+    	localStorage.setItem("password", this.password);
+
+    	window.location.href = "/home";
+      this.username = "success";
+      this.password = "success";
+    }
+    else
+    {
+      this.isValid = false;
+
+      setTimeout(()=>{
+        this.isValid = true;
+      }, 5000);
+    }
   }
 
 }

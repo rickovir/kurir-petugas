@@ -11,5 +11,10 @@ export class MainComponent implements OnInit {
 
   ngOnInit() {
   }
-
+  logOut()
+  {
+  	localStorage.setItem('username','');
+  	localStorage.setItem('password','');
+  	window.location.href = "/login";
+  }
 }
