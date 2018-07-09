@@ -120,8 +120,6 @@ export class AddPaketComponent implements OnInit {
 			lat:0,
 			lng:0
 		}
-
-		this.tujuanOption = [];
 	}
 
 	setAlamatPengirim(alamat)

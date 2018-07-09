@@ -42,6 +42,15 @@
             <span class="focus-input100" *ngIf="password == ''" data-placeholder="Password"></span>
           </div>
 
+          <div class="wrap-input100 validate-input m-t-85 m-b-35" data-validate = "Enter username">
+            <select class="input100" name="server" [(ngModel)]="server" >
+              <option [ngValue]="undefined" selected="true">--Pilih Server--</option>
+              <option *ngFor="let cabang of cabangs" [ngValue]="cabang">Server Cabang {{cabang.nama_cabang}}</option>
+            </select>
+            <span class="focus-input100" *ngIf="server == ''" data-placeholder="Server"></span>
+            <span class="focus-input100" *ngIf="server != ''"></span>
+          </div>
+
           <div class="container-login100-form-btn">
             <button class="login100-form-btn" (click)="submit()">
               Login

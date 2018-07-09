@@ -12,6 +12,7 @@ export class GeneralService {
 	private socket:any;
 
 	constructor() {
+	// this.socketUrl = `http://${ localStorage.getItem("IP") }`;
 		this.socketUrl = "http://localhost:3000";
 		this.socket = io(this.socketUrl);
 		this.socket.connect();

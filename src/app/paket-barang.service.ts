@@ -14,6 +14,7 @@ export class PaketBarangService {
   	private socketUrl:string;
   	private socket:any;
   constructor() { 
+  // this.socketUrl = `http://${ localStorage.getItem("IP") }`;
 	this.socketUrl = "http://localhost:3000";
 	this.socket = io(this.socketUrl);
 	this.socket.connect();
@@ -95,7 +96,11 @@ export class PaketBarangService {
   {
     let send = {
       type : 'add',
-    data : data
+      data : data,
+      cabang : {
+        IDCabang : localStorage.getItem("IDCabang"),
+        nama_cabang : localStorage.getItem("nama_cabang")
+      }
     };
     this.socket.emit('paket_barang_stream', send);
     

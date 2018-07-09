@@ -839,6 +839,10 @@ hr {
   .open .form-control {
     border-bottom-color: transparent; }
 
+.table-responsive .form-control.input-sm{
+  border: 1px solid #ccc !important;
+}
+
 .input-lg {
   height: 55px;
   padding: 11px 30px; }

@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import * as io from 'socket.io-client';
+import { Observable, of } from 'rxjs';
+import { catchError, map, tap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-login',
@@ -9,14 +12,37 @@ export class LoginComponent implements OnInit {
 	username:string;
 	password:string;
   isValid:boolean;
+  cabangs:any[];
+  server:any;
+  private socketUrl:string;
+  private socket:any;
 
   constructor() { 
-  	this.username="";
-  	this.password="";
+    // this.socketUrl = "http://192.168.1.30:3000";
+    this.socketUrl = "http://localhost:3000";
+    this.socket = io(this.socketUrl);
+    this.socket.connect();
+
+    this.username="";
+    this.password="";
     this.isValid = true;
+    this.cabangs = [];
   }
 
   ngOnInit() {
+    this.socket.emit("servers_stream");
+
+    let observable:Observable<any> = new Observable(
+      (observer) => {
+      this.socket.on('servers_stream', 
+        (data) => {
+        observer.next(data);
+        });
+      });
+    observable.subscribe((data)=>{
+      this.cabangs = data;
+      console.log(data);
+    });
   }
 
   submit():void
@@ -28,6 +54,10 @@ export class LoginComponent implements OnInit {
 
     	localStorage.setItem("username", this.username);
     	localStorage.setItem("password", this.password);
+
+      localStorage.setItem("IDCabang", this.server.IDCabang);
+      localStorage.setItem("nama_cabang", this.server.nama_cabang);
+      localStorage.setItem("IP", this.server.IP);
 
     	window.location.href = "/home";
       this.username = "success";
