@@ -9,8 +9,8 @@ import { catchError, map, tap } from 'rxjs/operators';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
-	username:string;
-	password:string;
+  username:string;
+  password:string;
   isValid:boolean;
   cabangs:any[];
   server:any;
@@ -20,16 +20,23 @@ export class LoginComponent implements OnInit {
   constructor() { 
     // this.socketUrl = "http://192.168.1.30:3000";
     this.socketUrl = "http://localhost:3000";
-    this.socket = io(this.socketUrl);
-    this.socket.connect();
 
     this.username="";
+    this.password="";
     this.password="";
     this.isValid = true;
     this.cabangs = [];
   }
 
   ngOnInit() {
+  
+  }
+  connect()
+  {
+
+    this.socket = io(this.socketUrl);
+    this.socket.connect();
+
     this.socket.emit("servers_stream");
 
     let observable:Observable<any> = new Observable(
@@ -52,14 +59,15 @@ export class LoginComponent implements OnInit {
     this.password = btoa(this.password);
     if(this.username == 'cGV0dWdhcw==' && this.password == 'cGV0dWdhcw=='){
 
-    	localStorage.setItem("username", this.username);
-    	localStorage.setItem("password", this.password);
+      localStorage.setItem("username", this.username);
+      localStorage.setItem("password", this.password);
+      localStorage.setItem("socketUrl", this.server.IP);
 
       localStorage.setItem("IDCabang", this.server.IDCabang);
       localStorage.setItem("nama_cabang", this.server.nama_cabang);
       localStorage.setItem("IP", this.server.IP);
 
-    	window.location.href = "/home";
+      window.location.href = "/home";
       this.username = "success";
       this.password = "success";
     }

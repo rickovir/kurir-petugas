@@ -42,6 +42,18 @@
             <span class="focus-input100" *ngIf="password == ''" data-placeholder="Password"></span>
           </div>
 
+          <div class="wrap-input100 validate-input m-t-85 m-b-35" data-validate = "Enter IP Forward Server">
+            <input class="input100" type="text" name="socketUrl" [(ngModel)]="socketUrl" >
+            <span class="focus-input100" *ngIf="socketUrl == ''" data-placeholder=" IP Forward Server"></span>
+            <span class="focus-input100" *ngIf="socketUrl != ''"></span>
+          </div>
+
+          <div class="container-login100-form-btn">
+            <button class="login100-form-btn" (click)="connect()">
+              Connect
+            </button>
+          </div>
+
           <div class="wrap-input100 validate-input m-t-85 m-b-35" data-validate = "Enter username">
             <select class="input100" name="server" [(ngModel)]="server" >
               <option [ngValue]="undefined" selected="true">--Pilih Server--</option>

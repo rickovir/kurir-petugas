@@ -11,12 +11,18 @@ export class GeneralService {
 	private socketUrl:string;
 	private socket:any;
 
-	constructor() {
-	// this.socketUrl = `http://${ localStorage.getItem("IP") }`;
-		this.socketUrl = "http://localhost:3000";
-		this.socket = io(this.socketUrl);
-		this.socket.connect();
- }
+  constructor() {
+    this.socketUrl = localStorage.getItem("socketUrl");
+    if(this.socketUrl == undefined)
+    {
+      window.location.href = "/login";
+    }
+    else
+    {
+      this.socket = io(this.socketUrl);
+      this.socket.connect();  
+    }
+  }
 
 	callTarif()
 	{
